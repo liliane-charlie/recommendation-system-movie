@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Recommendations</title>
+</head>
+<body>
+    <h1>Movie Recommendations</h1>
+    <form id="recommendationForm">
+        <input type="text" id="movieName" name="movieName" placeholder="Enter movie name" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    <div id="recommendations">
+        <!-- Recommendations will be displayed here -->
+    </div>
+    <script>
+        document.getElementById('recommendationForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const movieName = document.getElementById('movieName').value;
+            const response = await fetch('/recommendations/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ movie_name: movieName })
+            });
+            const data = await response.json();
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '';
+            if (data.recommendations) {
+                data.recommendations.forEach(movie => {
+                    const movieElement = document.createElement('p');
+                    movieElement.textContent = movie;
+                    recommendationsDiv.appendChild(movieElement);
+                });
+            } else {
+                recommendationsDiv.textContent = 'No recommendations found.';
+            }
+        });
+    </script>
+</body>
+</html>
