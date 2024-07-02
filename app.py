@@ -68,7 +68,7 @@ def get_recommendations(request: MovieRequest):
     sorted_similar_movies = sorted(similarity_score, key=lambda x: x[1], reverse=True)
 
     recommendations = []
-    for movie in sorted_similar_movies[1:31]:  # Skip the first one because it's the same movie
+    for movie in sorted_similar_movies[1:6]:  # Skip the first one because it's the same movie
         index = movie[0]
         title_from_index = movies_data.iloc[index]['title']
         recommendations.append(title_from_index)
