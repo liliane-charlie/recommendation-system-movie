@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
-from fastapi.staticfiles import StaticFiles
+from starlette.staticfiles import StaticFiles
+import os
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 import pandas as pd
@@ -11,7 +12,7 @@ import difflib
 app = FastAPI()
 
 # Load your movies data
-movies_data = pd.read_csv(r'C:\Users\USER\OneDrive\Desktop\movies\movies.csv')  # Ensure this path is correct
+movies_data = pd.read_csv(r'C:\Users\Deputy\Desktop\DSML\Hackathon\recommendation-system-movie\movies.csv')  # Ensure this path is correct
 
 # Check if 'index' is in the DataFrame, if not create it
 if 'index' not in movies_data.columns:
@@ -40,6 +41,9 @@ class MovieRequest(BaseModel):
     movie_name: str
 
 # Serve static files
+static_directory ="static"
+if not os.path.exists(static_directory):
+    os.makedirs(static_directory)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Templates setup
