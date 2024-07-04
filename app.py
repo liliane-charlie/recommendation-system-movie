@@ -12,7 +12,7 @@ import difflib
 app = FastAPI()
 
 # Load your movies data
-movies_data = pd.read_csv(r'C:\Users\Deputy\Desktop\DSML\Hackathon\recommendation-system-movie\movies.csv')  # Ensure this path is correct
+movies_data = pd.read_csv(r'"C:\Users\Deputy\Desktop\DSML\Hackathon\recommendation-system-movie\movies.csv"')  # Ensure this path is correct
 
 # Check if 'index' is in the DataFrame, if not create it
 if 'index' not in movies_data.columns:
